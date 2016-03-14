@@ -16,14 +16,22 @@
 
 def valid_date?(month, day, year)
   #write your method here
+  months_30 = [4, 6, 9, 11]
+  months_31 = [1, 3, 5, 7, 8, 10, 12]
+
   if month < 1 || month > 12
 		return false
 	end
 
-	if day <= 0 || day >= 31
+	if (months_31.include? month) && !(day < 32 && day > 0)
 		return false
-	else 
+	elsif (months_30.include? month) && !(day < 31 && day > 0)
+		return false
+	end
 
 	if year < 1880 || year > 2280
 		return false
-	end
+    end
+    
+    return true    
+end
