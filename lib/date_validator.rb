@@ -23,10 +23,6 @@ def valid_date?(month, day, year)
 		return false
 	end
 
-	if year < 1880 || year > 2280
-		return false
-    end
-
 	if (months_31.include? month) && !(day < 32 && day > 0)
 		return false
 	elsif (months_30.include? month) && !(day < 31 && day > 0)
@@ -40,6 +36,9 @@ def valid_date?(month, day, year)
 			return true
 	end
 
+	if year < 1880 || year > 2280
+		return false
+    end
     
     return true    
 end
