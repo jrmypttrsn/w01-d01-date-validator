@@ -24,24 +24,24 @@ def valid_date?(month, day, year)
 	end
 
 	if (months_31.include? month) && !(day < 32 && day > 0)
-		return false
+		return false	
 	elsif (months_30.include? month) && !(day < 31 && day > 0)
 		return false
 	end
 
 	if (year % 4 == 0 && month == 2) && (year % 100 != 0) && !(day > 0 && day < 30)
 		return false
-			elsif (year % 4 == 0 && month == 2) && (year % 100 == 0 && year % 400 == 0) && !(day > 0 && day < 30)
-				return false
-		  elsif (month == 2) && (day > 1 && day < 29)
-				return true
+	elsif (year % 4 == 0 && month == 2) && (year % 100 == 0 && year % 400 == 0) && !(day > 0 && day < 30)
+		return false
+  elsif (month == 2) && (day > 1 && day < 29)
+		return true
 	end
 
 	if year < 1880 || year > 2280
 		return false
     end
     
-    return true    
+  return true    
 end
 
 
