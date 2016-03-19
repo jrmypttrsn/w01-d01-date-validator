@@ -14,45 +14,64 @@
 #
 # This method should, in its final form, not do any output.
 require 'pry'
-def valid_date?(month, day, year)
-  #write your method here
-  months_30 = [4, 6, 9, 11]
-  months_31 = [1, 3, 5, 7, 8, 10, 12]
 
-#determine if months are in range
-  if month < 1 || month > 12
-		return false
-	end
-
-# determine if day falls within month that has 31 days
-  if months_31.include?(month) && day > 31 || day <= 0
-    return false
-  end
-# determine if day falls within month that has 30 days
-	if months_30.include?(month) && day > 30 || day <= 0
-    return false
-  end
-
-# determine what a leap year is
-	leap_year = (1880..2280).find_all do |i| 
-     	i % 4 == 0 && 
-     	i % 100 != 0 || 
-     	i % 400 == 0
-     end
-
-#determine if the year given is a leap year
-  if (month == 2 && leap_year.include?(year)) && day == 29
-    return true
-  elsif month == 2 && day > 28
-   	return false
-  end
-
-#determine if the year is within the allowed range
-	if year < 1880 || year > 2280
-		return false
-  end
-    
-  return true    
+def valid_date? (month, day, year)
+  month_length(month) &&
+  valid_year(year) &&
+  days_in_month(day, month, year) &&
+  valid_day(day, month, year) 
 end
 
-# puts valid_date?(2, 29, 1900)
+
+def valid_day(day, month, year)
+    day >= 1 && day <= days_in_month(day, month, year)
+end
+
+
+# determining  leap year
+
+def february_valid(year)
+  if leap_year(year)
+    days_in_february = 29
+  else 
+    days_in_february = 28
+  end
+end
+
+# determining the days in each month
+
+def days_in_month(day, month, year)
+    days_month ={
+                  1 => 31,
+                  2 => february_valid(year),
+                  3 => 31,
+                  4 => 30,
+                  5 => 31,
+                  6 => 30,
+                  7 => 31,
+                  8 => 31,
+                  9 => 30,
+                  10 => 31,
+                  11 => 30,
+                  12 => 31,
+                }
+    days_month[month]
+end
+
+# determine what a leap year is
+
+def leap_year(year)
+  year % 400 == 0 || (year % 4 == 0 && year % 100 !=0)
+end 
+
+# determine if months are in range
+
+def month_length(month)
+  month >= 1 && month <= 12    
+end 
+
+# determine if the year is within the allowed range
+
+def valid_year (year)  
+  year >= 1880 && year <=2280  
+end
