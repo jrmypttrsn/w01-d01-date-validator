@@ -22,24 +22,17 @@ def valid_date? (month, day, year)
   valid_day(day, month, year) 
 end
 
+# determine if months are in range
+def month_length(month)
+  month >= 1 && month <= 12    
+end 
 
-def valid_day(day, month, year)
-    day >= 1 && day <= days_in_month(day, month, year)
-end
-
-
-# determining  leap year
-
-def february_valid(year)
-  if leap_year(year)
-    days_in_february = 29
-  else 
-    days_in_february = 28
-  end
+# determine if the year is within the allowed range
+def valid_year(year)  
+  year >= 1880 && year <=2280  
 end
 
 # determining the days in each month
-
 def days_in_month(day, month, year)
     days_month ={
                   1 => 31,
@@ -58,20 +51,22 @@ def days_in_month(day, month, year)
     days_month[month]
 end
 
-# determine what a leap year is
+#determines if day is valid
+def valid_day(day, month, year)
+    day >= 1 && day <= days_in_month(day, month, year)
+end
 
+
+# determining leap year by checking days in February
+def february_valid(year)
+  if leap_year(year)
+    days_in_february = 29
+  else 
+    days_in_february = 28
+  end
+end
+
+# determine what a leap year is
 def leap_year(year)
   year % 400 == 0 || (year % 4 == 0 && year % 100 !=0)
 end 
-
-# determine if months are in range
-
-def month_length(month)
-  month >= 1 && month <= 12    
-end 
-
-# determine if the year is within the allowed range
-
-def valid_year (year)  
-  year >= 1880 && year <=2280  
-end
